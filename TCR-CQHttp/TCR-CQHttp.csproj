@@ -4,39 +4,32 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D9BA95FA-F737-4196-A84E-E7B67131537D}</ProjectGuid>
+    <ProjectGuid>{CD8BA74B-06A3-4E7F-923F-00DF694AD6E5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TCRDiscord</RootNamespace>
-    <AssemblyName>TCR-Discord</AssemblyName>
+    <RootNamespace>TCRCQHttp</RootNamespace>
+    <AssemblyName>TCR-CQHttp</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TShock|AnyCPU'">
-    <OutputPath>bin\TShock\</OutputPath>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\TShock\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TModLoader|AnyCPU'">
     <OutputPath>bin\TModLoader\</OutputPath>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
-    <OutputPath>bin\TModLoader\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'TShock|AnyCPU'">
+    <OutputPath>bin\TShock\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OTAPI">
+      <HintPath>..\lib\Terraria\1.4.2.3\OTAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,26 +45,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatClient.cs" />
-    <Compile Include="Commands\CmdAddManager.cs" />
-    <Compile Include="Commands\CmdListManager.cs" />
-    <Compile Include="Commands\CmdListAdmin.cs" />
-    <Compile Include="Commands\CmdRemoveManager.cs" />
-    <Compile Include="Commands\CmdRemoveAdmin.cs" />
     <Compile Include="Commands\CmdAddAdmin.cs" />
+    <Compile Include="Commands\CmdAddManager.cs" />
+    <Compile Include="Commands\CmdListAdmin.cs" />
+    <Compile Include="Commands\CmdListManager.cs" />
+    <Compile Include="Commands\CmdPlaying.cs" />
+    <Compile Include="Commands\CmdRemoveAdmin.cs" />
+    <Compile Include="Commands\CmdRemoveManager.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Helpers\ChatParser.cs" />
+    <Compile Include="Helpers\WebSocketHelper.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Messaging\MessageFactory.cs" />
     <Compile Include="Messaging\MessageQueue.cs" />
-    <Compile Include="Models\GatewayOpcode.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\MessageData.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TCR-TerrariaChatRelay\TerrariaChatRelay-Core.csproj">
@@ -79,17 +68,9 @@
       <Name>TerrariaChatRelay-Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <Choose>
-    <When Condition=" '$(Configuration)' == 'TShock' ">
-      <PropertyGroup>
-        <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-      </PropertyGroup>
-    </When>
-    <When Condition=" '$(Configuration)' == 'TModLoader' ">
-      <PropertyGroup>
-        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-      </PropertyGroup>
-    </When>
-  </Choose>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

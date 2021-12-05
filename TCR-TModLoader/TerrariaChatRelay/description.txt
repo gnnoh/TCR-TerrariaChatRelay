@@ -1,5 +1,5 @@
-TerrariaChatRelay - 1.0.2
-Supported Chat Services: Discord
+TerrariaChatRelay - 1.0.4.4
+Supported Chat Services: Discord, CQHttp(Testing)
 
 Allows you to re-route Terraria's chat to different places.
 
