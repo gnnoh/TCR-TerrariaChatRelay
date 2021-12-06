@@ -49,7 +49,6 @@
     <Compile Include="Commands\CmdAddManager.cs" />
     <Compile Include="Commands\CmdListAdmin.cs" />
     <Compile Include="Commands\CmdListManager.cs" />
-    <Compile Include="Commands\CmdPlaying.cs" />
     <Compile Include="Commands\CmdRemoveAdmin.cs" />
     <Compile Include="Commands\CmdRemoveManager.cs" />
     <Compile Include="Configuration.cs" />

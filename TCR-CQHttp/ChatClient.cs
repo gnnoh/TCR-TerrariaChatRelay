@@ -102,7 +102,7 @@ namespace TCRCQHttp
         private readonly Regex cqCodeTypeFinder = new Regex(@"\[CQ:(\w+)");
         private readonly Regex cqCodeParamFinder = new Regex(@",([\w\-.]+?)=([^,\]]+)");
         private readonly Regex cqCodeAtFinder = new Regex(@"\[CQ:at,qq=[0-9al]*\]");
-        private readonly Regex cqCodeFaceFinder = new Regex(@"\[CQ:face,id=[0-9]\]");
+        private readonly Regex cqCodeFaceFinder = new Regex(@"\[CQ:face,id=[0-9]*\]");
         public string ConvertCQCodesToNames(Message.GroupMessage chatMessage)
         {
             var match = cqCodeFinder.Match(chatMessage.RawMessage);
@@ -135,7 +135,7 @@ namespace TCRCQHttp
                 }
 
                 cqCode = cqCodeTypeFinder.Match(chatMessage.RawMessage);
-                chatMessage.RawMessage = "["+chatMessage.RawMessage.Replace(match.Value, cqCode.Value.Substring(4))+"]";
+                chatMessage.RawMessage = "["+chatMessage.RawMessage.Replace(match.Value, cqCode.Value.Substring(4)).Trim()+"]";
                 return ConvertCQCodesToNames(chatMessage);
             }
 
@@ -465,7 +465,7 @@ namespace TCRCQHttp
 				else if (msg.Player.Name == "Server")
                     outMsg = Configuration.WorldEventFormat;
 				else if (msg.Player.Name == "Server" && msg.Message.Contains("A new version of TCR is available!"))
-					outMsg = ":desktop:  **%message%**";
+					outMsg = "**%message%**";
 				else
 					outMsg = "%message%";
 
